@@ -1,0 +1,57 @@
+{% extends 'barberia/index.html' %}
+
+{% block titulo %}
+Formulario Servicios
+{% endblock titulo %}
+
+{% block contenido %}
+
+<div class="formulario-container">
+    <form action="" method="POST" class="formulario">
+        {% csrf_token %}
+        <table>
+            {{ form }}
+        </table>
+        <input type="submit" value="Guardar">
+    </form>
+</div>
+
+<style>
+    .formulario-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50vh; 
+    }
+
+    .formulario {
+        width: 300px; 
+        padding: 50px;
+        background-color: #f0f0f0;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .formulario table {
+        width: 50%;
+    }
+
+    .centrar-boton {
+        text-align: center;
+        margin-top: 10px;
+    }
+    
+    .formulario input[type="submit"] {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+</style>
+
+{% endblock contenido %}
+
+    

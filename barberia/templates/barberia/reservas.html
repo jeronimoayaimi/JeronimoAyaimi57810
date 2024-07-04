@@ -1,0 +1,29 @@
+{% extends 'barberia/index.html' %}
+
+{% block titulo %}
+Reservas
+{% endblock titulo %}
+
+{% block contenido %}
+<h2 class="mt-5 text-center">Turnos agendados</h2>
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Nombre y Apellido</th>
+                <th>Email</th>
+                <th>Fecha</th>
+                <th>Hora</th>   
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in reservas %}
+                <tr>
+                    <td>{{ r.nombreCliente }}</td>
+                    <td>{{ r.emailCliente }}</td>
+                    <td>{{ r.fechaTurno }}</td>
+                    <td>{{ r.horaTurno }}</td> 
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock contenido %}

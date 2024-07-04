@@ -1,0 +1,30 @@
+{% extends 'barberia/index.html' %}
+
+
+{% block titulo %}
+Profesionales
+{% endblock titulo %}
+    
+
+{% block contenido %}
+<h2 class="mt-5 text-center">Nuestros Profesionales</h2>
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>  
+        </tr>
+    </thead>
+    <tbody>
+        {% for profesionales in profesionales %}
+            <tr>
+                <td>{{ profesionales.nombre }}</td>
+                <td>{{ profesionales.apellido }}</td>
+                <td>{{ profesionales.email }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock contenido %}
+    
