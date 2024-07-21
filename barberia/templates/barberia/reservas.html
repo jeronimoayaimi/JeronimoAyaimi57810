@@ -5,25 +5,142 @@ Reservas
 {% endblock titulo %}
 
 {% block contenido %}
-<h2 class="mt-5 text-center">Turnos agendados</h2>
-    <table class="table table-striped mt-3">
-        <thead>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Agenda</h3>
+        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#reservaModal">
+            <i class="fa fa-plus fa-lg" title="Reservar Turno"></i>
+        </button>
+    </div>
+
+    <style>
+        .icon-only {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background-color: orange; 
+            color: white; 
+            width: 30px;  
+            height: 30px; 
+            border-radius: 20%; 
+            text-decoration: none; 
+            border: none;
+        }
+
+        .icon-only i {
+            font-size: 1.5rem; 
+        }
+    </style>
+
+    {% if mensaje %}
+    <div class="d-flex justify-content-center">
+        <div class="alert alert-success" role="alert">
+            {{ mensaje }}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="reservaModal" tabindex="-1" aria-labelledby="reservaModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reservaModalLabel">Reservar Turno</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'reservaForm' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="nombreCliente" class="form-label">Nombre y Apellido</label>
+                            <input type="text" class="form-control" id="nombreCliente" name="nombreCliente" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="emailCliente" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="emailCliente" name="emailCliente" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fechaTurno" class="form-label">Fecha</label>
+                            <input type="date" class="form-control" id="fechaTurno" name="fechaTurno" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="horaTurno" class="form-label">Hora</label>
+                            <select class="form-select" id="horaTurno" name="horaTurno" required>
+                                <option value="09:00">09:00</option>
+                                <option value="10:00">10:00</option>
+                                <option value="11:00">11:00</option>
+                                <option value="12:00">12:00</option>
+                                <option value="13:00">13:00</option>
+                                <option value="14:00">14:00</option>
+                                <option value="15:00">15:00</option>
+                                <option value="16:00">16:00</option>
+                                <option value="17:00">17:00</option>
+                                <option value="18:00">18:00</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Reservar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mt-5 text-center">Turnos agendados</h2>
+    <table class="table table-bordered table-striped mt-3 bg-light">
+        <thead class="bg-secondary text-white">
             <tr>
+                <th>Id</th>
                 <th>Nombre y Apellido</th>
                 <th>Email</th>
                 <th>Fecha</th>
-                <th>Hora</th>   
+                <th>Hora</th>
+                <th>Estado</th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
             {% for r in reservas %}
                 <tr>
+                    <td>{{ r.id }}</td>
                     <td>{{ r.nombreCliente }}</td>
                     <td>{{ r.emailCliente }}</td>
                     <td>{{ r.fechaTurno }}</td>
-                    <td>{{ r.horaTurno }}</td> 
+                    <td>{{ r.horaTurno }}</td>
+                    <td>{{ r.estado }}</td>
+                    <td>
+                        <style>
+                            .action-buttons {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                            }
+                            .action-buttons a {
+                                margin: 0 5px;
+                            }
+                        </style>
+                        
+                        <div class="action-buttons">
+                            {% if r.estado != 'cancelado' %}
+                                <a href="{% url 'reservaUpdate' r.id %}" class="btn btn-success btn-sm">
+                                    <i class="fa fa-edit fa-sm" title="Editar"></i>
+                                </a>
+                                <a href="{% url 'reservaCancel' r.id %}" class="btn btn-danger btn-sm">
+                                    <i class="fa-solid fa-ban" title="Cancelar turno"></i>
+                                </a>
+                            {% else %}
+                                <a href="#" class="btn btn-danger btn-sm icon-only">
+                                    <i class="fa-solid fa-circle-exclamation"></i>
+                                </a>
+                                <a href="{% url 'reservaDelete' r.id %}" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-trash fa-sm" title="Eliminar Registro"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                        
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+</div>
 {% endblock contenido %}

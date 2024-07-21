@@ -1,6 +1,11 @@
 {% extends 'barberia/index.html' %}
 
+{% block titulo %}
+Sucursales
+{% endblock titulo %}
+
 {% block contenido %}
+
 <div class="container mt-4">
     {% if mensaje %}
     <div class="d-flex justify-content-center">
@@ -12,10 +17,10 @@
 
     <div class="row mb-3">
         <div class="col-md-10">
-            <h2>Barberos</h2>
+            <h2>Sucursales</h2>
         </div>
         <div class="col-md-2 text-end">
-            <a href="{% url 'profesionalForm' %}" class="btn btn-success btn-sm">
+            <a href="{% url 'sucursalForm' %}" class="btn btn-success btn-sm">
                 <i class="fa fa-plus fa-lg" title="Crear"></i>
             </a>
         </div>
@@ -26,24 +31,26 @@
             <thead class="bg-secondary text-white">
                 <tr>
                     <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Email</th>
+                    <th>Sucursal</th>
+                    <th>Direccion</th>
+                    <th>Telefono</th>
+                    <th>Horario</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                {% for p in profesionales %}
+                {% for k in sucursal %}
                 <tr>
-                    <td>{{ p.id }}</td>
-                    <td>{{ p.nombre }}</td>
-                    <td>{{ p.apellido }}</td>
-                    <td>{{ p.email }}</td>
+                    <td>{{ k.id }}</td>
+                    <td>{{ k.nombreSucursal }}</td>
+                    <td>{{ k.direccionSucursal }}</td>
+                    <td>{{ k.telSucursal }}</td>
+                    <td>{{ k.horariosSucursal }}</td>
                     <td>
-                        <a href="{% url 'profesionalUpdate' p.id %}" class="btn btn-success btn-sm">
+                        <a href="{% url 'sucursalUpdate' k.id %}" class="btn btn-success btn-sm">
                             <i class="fa fa-edit fa-sm" title="Edit Record"></i>
                         </a>
-                        <a href="{% url 'profesionalDelete' p.id %}" class="btn btn-danger btn-sm">
+                        <a href="{% url 'sucursalDelete' k.id %}" class="btn btn-danger btn-sm">
                             <i class="fa fa-trash fa-sm" title="Delete Record"></i>
                         </a>
                     </td>
@@ -53,4 +60,5 @@
         </table>
     </div>
 </div>
+
 {% endblock contenido %}

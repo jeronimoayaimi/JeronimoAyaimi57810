@@ -1,0 +1,11 @@
+{% extends 'barberia/index.html' %}
+
+{% block titulo %}
+Logout
+{% endblock titulo %}
+
+{% block contenido %}
+{% csrf_token %}
+<form method ='post' action="{% url 'logout' %}">  
+      <h4> style='color:red' align="center"> Se ha deslogueado exitosamente</h4>
+{% endblock contenido %}

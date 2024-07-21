@@ -1,0 +1,45 @@
+{% extends 'barberia/index.html' %}
+
+{% block titulo %}
+Login
+{% endblock titulo %}
+
+{% block contenido %}
+
+    <div class="modal fade show" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true" style="display: block; background-color: rgba(0, 0, 0, 0.7);">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background-color: #333; color: white;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: white;"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'login' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_username">Nombre de usuario:</label>
+                            <input type="text" name="username" class="form-control" id="id_username" style="background-color: #444; border: 1px solid #555; color: white;">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_password">Contraseña:</label>
+                            <input type="password" name="password" class="form-control" id="id_password" style="background-color: #444; border: 1px solid #555; color: white;">
+                        </div>
+                        <div class="text-center mt-4">
+                            <input type="submit" class="btn btn-success" value="Login">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var loginModal = new bootstrap.Modal(document.getElementById('loginModal'), {
+                keyboard: false,
+                backdrop: 'static'
+            });
+            loginModal.show();
+        });
+    </script>
+
+{% endblock contenido %}
